@@ -1,0 +1,73 @@
+{% extends 'menu/menu.html' %}
+{% block content-wrapper %}
+{% load static %} 
+
+        <section class="content-header">
+          <h1>
+            Usuarios
+            <small>Listado</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li><a href="#">Usuarios</a></li>
+            <li class="active">Listado</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Listado de usuarios</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+						<th style="font-weight: bold;">Usuario</th>
+						<th style="font-weight: bold;">Nombre</th>
+						<th style="font-weight: bold;">Apellido</th>
+						<th style="font-weight: bold;">¿Administrador?</th>
+						<th style="font-weight: bold;">¿Activo?</th>
+						<th style="font-weight: bold;">Visualizar</th>
+						<th style="font-weight: bold;">Modificar</th>
+						<th style="font-weight: bold;">Eliminar</th>
+                      </tr>
+                    </thead>
+					<tbody>
+						{% for p in usuarios %}
+						<tr>
+						  <td>{{ p.username }}</td>
+						  <td>{{ p.first_name }}</td>
+						  <td>{{ p.last_name }}</td>
+						  {% if p.is_staff %}
+							<td><span class="glyphicon glyphicon-ok"></span></td>
+						  {% else %}
+							<td><span class="glyphicon glyphicon-remove"></span></td>
+						  {% endif %}
+						  {% if p.is_active %}
+							<td><span class="glyphicon glyphicon-ok"></span></td>
+						  {% else %}
+							<td><span class="glyphicon glyphicon-remove"></span></td>
+						  {% endif %}
+							<td><a href="{% url 'singleusuarios_view' p.id %}"><button style="width:100px" type="button" class="btn btn-default btn-xs">Visualizar <span class="glyphicon glyphicon-pencil"></span></button></a></td>
+							<td><a href="{% url 'updateusuarios_view' p.id %}"><button style="width:100px" type="button" class="btn btn-default btn-xs">Modificar <span class="glyphicon glyphicon-eye-open"></span></button></a></td>
+						  {% if p.is_superuser == True %}
+							<td><a href="#"><button style="width:100px" type="button" class="btn btn-default btn-xs">Sin acción <span class="glyphicon glyphicon-pushpin"></span></button></a></td>
+						  {% else %}
+							<td><a href="{% url 'singleusuarios_delete' p.id %}"><button style="width:100px" type="button" class="btn btn-danger btn-xs">Eliminar <span class="glyphicon glyphicon-fire"></span></button></a></td>
+						  {% endif %}
+						</tr>
+						{% endfor %}
+					</tbody> 
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+{% endblock %}

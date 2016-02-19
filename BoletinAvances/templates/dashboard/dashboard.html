@@ -1,0 +1,140 @@
+{% extends 'menu/menu.html' %}
+{% block content-wrapper %}
+{% load static %}
+
+        <section class="content-header">
+          <h1>
+            Tablero
+            <small>Información</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li class="active">Tablero</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-2 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-gray">
+                <div class="inner">
+                  <h3>{{ usuarios }}</h3>
+                  <p>Usarios</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios-people-outline"></i>
+                </div>
+                <a href="{% url 'usuarios' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-1 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>{{ listas }}</h3>
+                  <p>Listas</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-star-o"></i>
+                </div>
+                <a href="{% url 'listas' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-1 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-orange">
+                <div class="inner">
+                  <h3>{{ contactos }}</h3>
+                  <p>Contactos</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="{% url 'contactos' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-1 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>{{ boletines }}</h3>
+                  <p>Boletines</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-envelope-o"></i>
+                </div>
+                <a href="{% url 'ver_boletines' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-1 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>{{ avances }}</h3>
+                  <p>Avances</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-files-o"></i>
+                </div>
+                <a href="{% url 'ver_avances' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-1 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-purple">
+                <div class="inner">
+                  <h3>{{ contactos }}</h3>
+                  <p>Resumen</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-bookmark"></i>
+                </div>
+                <a href="{% url 'contactos' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-1 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>{{ contactos }}</h3>
+                  <p>Primeras planas</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-certificate"></i>
+                </div>
+                <a href="{% url 'contactos' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-2 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-blue">
+                <div class="inner">
+                  <h3>{{ contactos }}</h3>
+                  <p>Columnas de Opinión</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-bullseye"></i>
+                </div>
+                <a href="{% url 'contactos' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-2 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>{{ contactos }}</h3>
+                  <p>Informes de televisión</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-video-camera"></i>
+                </div>
+                <a href="{% url 'contactos' %}" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
+        </section>
+
+{% endblock content-wrapper %}

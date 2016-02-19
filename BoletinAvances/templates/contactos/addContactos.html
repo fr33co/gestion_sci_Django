@@ -1,0 +1,76 @@
+{% extends 'menu/menu.html' %}
+{% block content-wrapper %}
+{% load static %}
+
+        <section class="content-header">
+          <h1>
+            Contactos
+            <small>Añadir (Manual)</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li><a href="#">Contactos</a></li>
+            <li class="active">Añadir (Manual)</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Añadir Contactos (Manual)</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id="multiselectForm" action="{% url 'AddcontManual' %}" method="post" enctype="multipart/form-data">
+                  
+                  <div class="box-body">
+                    
+                     <div class="form-group input-group-lg">
+                        <label for="nombre_contacto">Nombre y Apellidos del contacto:</label>
+                        <input type="text" class="form-control" name="nombre_contacto" id="nombre_contacto" required>
+                    </div>
+                     
+                    <div class="form-group input-group-lg">
+                        <label for="institucion">Institución a la cual pertenece:</label>
+                        <input type="text" class="form-control" name="institucion" id="institucion" required>
+                    </div>
+
+                    <div class="form-group input-group-lg">
+                        <label for="telefono">Número teléfonico:</label>
+                        <input type="text" class="form-control" name="telefono" id="telefono" required>
+                    </div>
+                    
+                    <div class="form-group input-group-lg">
+                        <label for="correo">Correo electrónico:</label>
+                        <input type="email" class="form-control" name="correo" id="correo" required>
+                    </div>
+                    
+                    <div class="form-group input-group-lg">
+                        <label for="descripcion_lista">Listas a la que forma parte:</label>
+                        <select style="width: 100%;" class="multiple" id="listas" name="listas" multiple required>
+                        {% for x,y in form.fields.listas.choices %}
+                            <option value="{{ x }}"{% if form.fields.listas.value == x %} {% endif %}>{{ y }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-block btn-primary btn-lg">Agregar contacto</button>
+                  </div>
+                  
+                  {% csrf_token %}
+                  
+                </form>
+      
+              </div><!-- /.box -->
+            </div><!--/.col (right) -->
+          </div>   <!-- /.row -->
+        </section><!-- /.content -->
+
+
+{% endblock %}

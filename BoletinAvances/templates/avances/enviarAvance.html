@@ -1,0 +1,134 @@
+{% extends 'menu/menu.html' %}
+{% block content-wrapper %}
+{% load static %}
+
+        <section class="content-header">
+          <h1>
+            Avances
+            <small>Enviar Avance</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li><a href="#">Avances</a></li>
+            <li class="active">Enviar Avance</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Enviar Avance</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+					
+					<form id="multiselectForm" action="{% url 'enviar_avance' %}" method="post" enctype="multipart/form-data">
+					
+					  {% csrf_token %}
+												  
+						<div class="large-12 columns">
+							<div class="table-responsive" id="file_container" style="display:block">
+						
+								<table class="table">
+								  <tr>
+									<th style="width: 20%">Tipo de envio</th>
+									<th style="width: 20%">Fecha</th>
+									<th style="width: 20%">Hora</th>
+									<th>Listas disponibles</th>
+								  </tr>
+								  <tr>
+									<td>
+									  <select style="width: 70%" class="form-control" id="tipo_envio" name="tipo_envio" value="{{ tipo_envio }}" required>
+										  {% for x,y in form.fields.tipo_envio.choices %}
+											  <option value="{{ x }}"{% if form.fields.tipo_envio.value == x %} {% endif %}>{{ y }}</option>
+										  {% endfor %}
+									  </select>
+									</td>
+									<td>
+									  <div style="width: 80%">
+										<div class="form-group">
+										  <div class="input-group">
+											<input class="form-control" data-provide="datepicker" value="{% now 'd/m/Y' %}" name="fecha" id="fecha" name="fecha">
+											<div class="input-group-addon">
+											  <i class="fa fa-calendar"></i>
+											</div>
+										  </div><!-- /.input group -->
+										</div><!-- /.form group -->
+									  </div>
+									</td>
+									<td>
+									  <!-- time Picker -->
+									  <div style="width: 70%" class="bootstrap-timepicker">
+										<div class="form-group">
+										  <div class="input-group">
+											<input type="text" value="{% now 'h:i A' %}" class="form-control timepicker" name="hora" id="hora" name="hora"/>
+											<div class="input-group-addon">
+											  <i class="fa fa-clock-o"></i>
+											</div>
+										  </div><!-- /.input group -->
+										</div><!-- /.form group -->
+									  </div>
+									</td>
+									<td>
+									  <div>
+										<select class="multiple" id="id_listas" name="listas" multiple required>
+										  {% for x,y in form.fields.listas.choices %}
+											<option value="{{ x }}"{% if form.fields.listas.value == x %} {% endif %}>{{ y }}</option>
+										  {% endfor %}
+										</select>
+									  </div>
+									</td>
+								  </tr>  
+								</table>
+				
+								<label for="titulomensaje"><h5>Titulo del mensaje:</h5></label>
+								<input type="text" style="width: 100%" maxlength="50" value="Avance del {% now 'd/m/Y' %} a las {% now 'h:i A' %}" class="form-control" required="require" id="titulo_mensaje" placeholder="Titulo del mensaje" name="titulo_mensaje">
+								<label for="cuerpomensaje"><h5>Cuerpo del mensaje:</h5></label>
+								<textarea style='width: 100%;' class="form-control" required maxlength="1000" rows="4" id='cuerpo_mensaje' value="{{ cuerpo_mensaje }}" name="cuerpo_mensaje"></textarea>
+								<input name="enviadopor" value={{ user.username }} required type="hidden" id="enviadopor"/>
+					  
+							</div>
+						</div>
+						
+						<div class="box-header" data-original-title>
+							<h2 class="box-title">Noticias que desea agregar:</h2>
+						</div>
+
+						<table id="example2" class="display table table-bordered" width="100%" cellspacing="0">
+						  <thead>
+							<tr>
+							  <th style="display:none;">ID</th>
+							  <th>Fecha</th>
+							  <th>Hora</th>
+							  <th>Enviado por</th>
+							  <th>Titulo de la noticia</th>
+							  <th>Estatus</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							{% for p in Noticias %}
+							<tr id="noticias" name="noticias" value="{{ p.id }}">
+							  <td name="fecha_noticia">{{ p.fecha|date:"d/m/Y" }}</td>
+							  <td name="hora_noticia">{{ p.hora|date:"h:i A" }}</td>
+							  <td name="enviadopor_noticia">{{ p.enviadopor }}</td>
+							  <td name="titulo_noticia">{{ p.titulo_noticia }}</td>
+							  <td name="status_noticia">{{ p.status }}</td>
+							</tr>
+							{% endfor %}
+						  </tbody>  
+						</table>
+
+						<hr>
+						<button type="submit" id="submit-all" class="btn btn-block btn-primary btn-lg">Enviar avance</button>
+						
+					</form>
+					<div id="contentPost"></div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'menu/menu.html' %}
+{% block content-wrapper %}
+{% load static %}
+
+        <section class="content-header">
+          <h1>
+            Listas
+            <small>Eliminar listas</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li><a href="#">Listas</a></li>
+            <li class="active">Eliminar listas</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">¿Seguro quiere eliminar la lista?</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                  
+                  <div class="box-body">
+                    
+                     <div class="form-group input-group-lg">
+                      <label for="descripcion_lista">Tipo de lista:</label>
+                      <input type="text" readonly value="{{ listas.tipo_lista }}" class="form-control" name="tipo_lista" id="tipo_lista" required>        
+                    </div>
+                     
+                    <div class="form-group input-group-lg">
+                        <label for="nombre_lista">Nombre de la lista:</label>
+                        <input type="text" readonly value="{{ listas.nombre_lista }}" class="form-control" name="nombre_lista" id="nombre_lista" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion_lista">Descripción o información de la lista:</label>
+                        <textarea style='width: 100%;' readonly class="form-control" required="require" maxlength="1000" rows="4" id='descripcion_lista' name="descripcion_lista">{{ listas.descripcion_lista }}</textarea>
+                    </div>
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-block btn-primary btn-lg">Eliminar lista</button>
+                  </div>
+
+                </form>
+      
+              </div><!-- /.box -->
+            </div><!--/.col (right) -->
+          </div>   <!-- /.row -->
+        </section><!-- /.content -->
+
+
+{% endblock %}

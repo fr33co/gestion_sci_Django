@@ -1,0 +1,61 @@
+{% extends 'menu/menu.html' %}
+{% block content-wrapper %}
+{% load static %}
+
+        <section class="content-header">
+          <h1>
+            Contactos
+            <small>Listado</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li><a href="#">Contactos</a></li>
+            <li class="active">Listado</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Listado de contactos</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+						<th>Nombre/apellido</th>
+						<th>Correo</th>
+						<th>Lista</th>
+						<th style="font-weight: bold;">Visualizar</th>
+						<th style="font-weight: bold;">Modificar</th>
+						<th style="font-weight: bold;">Eliminar</th>
+                      </tr>
+                    </thead>
+					<tbody>
+					  {% for p in Contactos %}
+					  <tr>
+						<td>{{ p.nombre_contacto }}</td>
+						<td>{{ p.correo }}</td>
+					<td>
+						{% for listas in p.listas.all %}
+						{{ listas }}
+						{% endfor %}
+					</td>
+						<td><a href="{% url 'singlecontactos_view' p.id %}"><button style="width:100px" type="button" class="btn btn-default btn-xs">Visualizar <span class="glyphicon glyphicon-eye-open"></span></button></a></td>
+						<td><a href="{% url 'contactos_update' p.id %}"><button style="width:100px" type="button" class="btn btn-default btn-xs">Modificar <span class="glyphicon glyphicon-pencil"></span></button></a></td>
+						<td><a href="{% url 'contactos_delete' p.id %}"><button style="width:100px" type="button" class="btn btn-danger btn-xs">Eliminar <span class="glyphicon glyphicon-fire"></span></button></a></td>      
+					  </tr>
+					  {% endfor %}
+					</tbody> 
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+{% endblock %}

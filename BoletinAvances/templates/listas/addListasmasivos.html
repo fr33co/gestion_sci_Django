@@ -1,0 +1,71 @@
+{% extends 'menu/menu.html' %}
+{% block content-wrapper %}
+{% load static %}
+
+        <section class="content-header">
+          <h1>
+            Listas
+            <small>Añadir (Masivo)</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li><a href="#">Listas</a></li>
+            <li class="active">Añadir (Masivo)</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Añadir listas (Masivo)</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="{% url 'AddlistasMasivo' %}" method="post" enctype="multipart/form-data">
+                  				  
+				  <div class="col-md-12">
+					<div class="box box-warning">
+					  <div class="box-header with-border">
+						<h3 class="box-title">¿Como generar el archivo CSV?</h3>
+					  </div><!-- /.box-header -->
+					  <div class="box-body">
+						<dl>
+						  <dt>Formato del archivo:</dt>
+						  <dd>Debe ser un archivo con extensión .csv</dd>
+						  <dt>Cabecera obligatoria del archivo:</dt>
+						  <dd>tipo_lista,nombre_lista,descripcion_lista</dd>
+						  <dt>Datos ejemplo del archivo:</dt>
+						  <dd>Tipo de lista,Nombre de la lista,Descripcion de la lista</dd>
+						</dl>
+
+					  </div><!-- /.box-body -->
+					</div><!-- /.box -->
+				  </div><!-- /.col -->
+				  
+				  <div class="box-body">
+                    
+                    <div class="form-group">
+                      <label for="file">Archivo a adjuntar:</label>
+                      <input name="file" type="file" id="file"/>
+                    </div>
+					
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-block btn-primary btn-lg">Agregar lista</button>
+                  </div>
+				  
+				  {% csrf_token %}
+                </form>
+      
+              </div><!-- /.box -->
+            </div><!--/.col (right) -->
+          </div>   <!-- /.row -->
+        </section><!-- /.content -->
+
+
+{% endblock %}
