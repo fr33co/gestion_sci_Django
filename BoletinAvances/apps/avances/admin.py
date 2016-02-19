@@ -7,7 +7,7 @@ class NoticiasInlineAdmin(admin.TabularInline):
     verbose_name_plural = "Noticias"
     model = Noticias
     extra = 0
-    
+
 
 class AvancesAdmin(admin.ModelAdmin):
     list_display = ('fecha', 'tipo_envio', 'enviadopor', 'status')
@@ -23,12 +23,12 @@ class AvancesAdmin(admin.ModelAdmin):
 
 
 class DiariosAdmin(admin.ModelAdmin):
-    list_display = ('nombre_diario',)
-    search_fields = ['nombre_diario',]
-    ordering = ('nombre_diario',)
+    list_display = ('pais', 'estado', 'nombre_diario',)
+    search_fields = ['pais', 'estado', 'nombre_diario',]
+    ordering = ('pais', 'estado', 'nombre_diario',)
     fieldsets = (
             ('Campos esenciales', {
-                'fields': ('nombre_diario',)
+                'fields': ('pais', 'estado', 'nombre_diario',)
             }),
         )
 

@@ -18,7 +18,7 @@ class Avances(models.Model):
    titulo_mensaje = models.CharField(max_length=110, verbose_name='Titulo')
    cuerpo_mensaje = models.TextField(verbose_name='Cuerpo del mensaje')
    enviadopor = models.CharField(max_length=50, verbose_name='Enviado por:')
-    
+
    class Meta:
       verbose_name_plural = "Agregar avances"
       ordering = ('fecha', 'tipo_envio', 'titulo_mensaje', 'status', 'enviadopor')
@@ -26,13 +26,15 @@ class Avances(models.Model):
    def __unicode__(self):
       ''':return: Representacion en cadena de la clase avances'''
       boletin = "Estatus: %s - Titulo: %s - Tipo de envio: %s" % (self.status, self.titulo_mensaje, self.tipo_envio)
-      return boletin   
+      return boletin
 
 
 class Diarios(models.Model):
    '''Clase para los diarios'''
+   pais = models.CharField(max_length=110, verbose_name='Pais', blank=True, null=True)
+   estado = models.CharField(max_length=110, verbose_name='Estado', blank=True, null=True)
    nombre_diario = models.CharField(max_length=110, verbose_name='Diario', blank=True, null=True)
-    
+
    class Meta:
       verbose_name_plural = "Agregar diario"
       ordering = ('nombre_diario',)
@@ -40,7 +42,7 @@ class Diarios(models.Model):
    def __unicode__(self):
       ''':return: Representacion en cadena de la clase diarios'''
       diario = "Diario: %s" % (self.nombre_diario,)
-      return diario   
+      return diario
 
 
 class Noticias(models.Model):
@@ -56,7 +58,7 @@ class Noticias(models.Model):
     enviadopor = models.CharField(max_length=50, verbose_name='Enviado por:')
     noticia = models.TextField(verbose_name='Extracto de la noticia')
     url = models.CharField(max_length=110, verbose_name='URL')
-    
+
     class Meta:
         verbose_name_plural = "Agregar noticias para avances"
         ordering = ('url', 'status')
@@ -64,4 +66,4 @@ class Noticias(models.Model):
     def __unicode__(self):
         ''':return: Representacion en cadena de la clase noticias'''
         noticia = "ID: %s - Titulo de noticia: %s - URL: %s" % (self.id, self.titulo_noticia, self.url)
-        return noticia   
+        return noticia

@@ -36,11 +36,11 @@
                     <tbody>
                       {% for p in Diarios %}
                       <tr>
-                        <td></td>
-                        <td></td>
+                        <td>{{ p.pais }}</td>
+                        <td>{{ p.estado }}</td>
                         <td>{{ p.nombre_diario }}</td>
-                        <td><a href="#"><button style="width:100px" type="button" class="btn btn-default btn-xs">Visualizar <span class="glyphicon glyphicon-pencil"></span></button></a></td>
-                        <td><a href="#"><button style="width:100px" type="button" class="btn btn-danger btn-xs">Eliminar <span class="glyphicon glyphicon-fire"></span></button></a></td>
+                        <td><a href="{% url 'singlediarios_view' p.id %}"><button style="width:100px" type="button" class="btn btn-default btn-xs">Visualizar <span class="glyphicon glyphicon-pencil"></span></button></a></td>
+                        <td><a href="{% url 'diario_delete' p.id %}"><button style="width:100px" type="button" class="btn btn-danger btn-xs">Eliminar <span class="glyphicon glyphicon-fire"></span></button></a></td>
                       </tr>
                       {% endfor %}
                     </tbody>
