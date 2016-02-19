@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from BoletinAvances.apps.boletines.models import Boletines
-from BoletinAvances.apps.avances.models import Avances
+from BoletinAvances.apps.avances.models import Avances, Noticias
 from BoletinAvances.apps.listas.models import Listas
 from BoletinAvances.apps.contactos.models import Contactos
 from django.views.generic import ListView, FormView, UpdateView, DetailView, DeleteView
@@ -47,21 +47,22 @@ def logout_view(request):
 
 
 #GRAFICOS
-@login_required(login_url='/') 
+@login_required(login_url='/')
 def graph_view(request):
     usuarios = User.objects.count()
     listas = Listas.objects.count()
     boletines = Boletines.objects.count()
     avances = Avances.objects.count()
+    noticias = Noticias.objects.count()
     contactos = Contactos.objects.count()
     lboletines = Boletines.objects.order_by('id')
-    ctx = {'boletines': boletines, 'lboletines': lboletines, 'avances': avances, 'usuarios': usuarios, 'listas': listas,
+    ctx = {'boletines': boletines, 'lboletines': lboletines, 'noticias': noticias, 'avances': avances, 'usuarios': usuarios, 'listas': listas,
            'contactos': contactos,}
     return render_to_response('dashboard/dashboard.html', ctx, context_instance=RequestContext(request))
 
 
 #CREAR USUARIOS
-@login_required(login_url='/') 
+@login_required(login_url='/')
 def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -81,27 +82,27 @@ def register_view(request):
 
 
 #VISUALIZAR LISTA DE USUARIOS
-@login_required(login_url='/') 
+@login_required(login_url='/')
 def usuarios_view(request):
     usuarios = User.objects.all().order_by('-is_superuser', 'id')
     return render_to_response('usuarios/listUsuarios.html', {"usuarios": usuarios}, context_instance=RequestContext(request))
 
 
 #VISTA PARA VISUALIZAR USUARIOS INDIVIDUALES
-@login_required(login_url='/') 
-def singleusuarios_view(request, id): 
+@login_required(login_url='/')
+def singleusuarios_view(request, id):
     usuarios = User.objects.get(id=id)
     ctx = {'usuarios': usuarios}
     return render_to_response('usuarios/singleUsuarios.html', ctx, context_instance=RequestContext(request))
 
 
 #VISTA PARA ELIMINAR USUARIOS INDIVIDUALES
-@login_required(login_url='/') 
-def singleusuarios_delete(request, id): 
+@login_required(login_url='/')
+def singleusuarios_delete(request, id):
     usuarios = User.objects.get(id=id).delete()
     return HttpResponseRedirect("/administracion/usuarios")
-    
-    
+
+
 #VISTA PARA MODIFICAR USUARIOS INDIVIDUALES
 #ACTUALIZAR
 class UsuariosUpdate(UpdateView):
