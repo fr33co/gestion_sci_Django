@@ -8,7 +8,7 @@ from BoletinAvances.apps.listas.forms import ListasForm
 from BoletinAvances.apps.contactos.models import Contactos
 from BoletinAvances.apps.contactos.forms import ContactosForm
 from BoletinAvances.apps.avances.models import Avances, Diarios, Noticias
-from BoletinAvances.apps.avances.forms import AvancesForm, NoticiasForm, NoticiasFormSet
+from BoletinAvances.apps.avances.forms import AvancesForm, DiariosForm, NoticiasForm, NoticiasFormSet
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import BadHeaderError, EmailMessage
@@ -21,19 +21,38 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 
 
+#LISTAR DIARIOS
+class DiariosListView(ListView):
+    model = Diarios
+    queryset = Diarios.objects.order_by('id')
+    context_object_name = "Diarios"
+    template_name = "Diarios/listaDiarios.html"
+
+#CREAR DIARIOS
+class DiarioAddView(FormView):
+    form_class = DiariosForm
+    success_url = reverse_lazy('ver_diarios')
+    template_name = "Diarios/enviarDiarios.html"
+
+    def form_valid(self, form):
+        form.save(commit=True)
+        messages.success(self.request, 'Diario cargado!', fail_silently=True)
+        return super(DiarioAddView, self).form_valid(form)
+
+
 #LISTAS NOTICIAS
 class NoticiasListView(ListView):
     model = Noticias
     queryset = Noticias.objects.order_by('id')
     context_object_name = "Noticias"
-    template_name = "avances/listaNoticias.html"
+    template_name = "Noticias/listaNoticias.html"
 
 
 #CREAR NOTICIAS
 class NoticiasAddView(FormView):
     form_class = NoticiasForm
     success_url = reverse_lazy('ver_noticias')
-    template_name = "avances/enviarNoticia.html"
+    template_name = "Noticias/enviarNoticia.html"
 
     def form_valid(self, form):
         form.instance.status = 'Borrador'
@@ -46,7 +65,7 @@ class NoticiasAddView(FormView):
 class NoticiasDetailView(DetailView):
     model = Noticias
     slug_field = 'id'
-    template_name="avances/singlenoticias.html"
+    template_name="Noticias/singlenoticias.html"
 
 
 #LISTAS AVANCES
@@ -107,7 +126,7 @@ class AvancesAddView(FormView):
         form.instance.status = 'Borrador'
         self.object = form.save()
         avance = self.object.id
-        
+
         #Cambiar estatus a las noticias
         context = self.get_context_data(**kwargs)
         noticias =  context['Noticias']
@@ -116,7 +135,7 @@ class AvancesAddView(FormView):
             b = Noticias.objects.get(id=a.id)
             b.status = "Enviado"
             b.save()
-        
+
         ### MODIFICAR SENDER
         sender = 'guadarramaangel@gmail.com'
         titulo_mensaje = self.object.titulo_mensaje
@@ -130,7 +149,6 @@ class AvancesAddView(FormView):
             for contacto in Contactos.objects.filter(listas=lista):
                 print contacto
                 recipients_final.append(contacto.correo)
-<<<<<<< HEAD
         #Cambiar estatus a las noticias
         context = self.get_context_data(**kwargs)
         noticias =  context['Noticias']
@@ -145,23 +163,16 @@ class AvancesAddView(FormView):
             b = Noticias.objects.get(id=a.id)
             b.status = "Enviado"
             b.save()
-=======
-                         
         #Enviar correo
-
         htmly = get_template('avances/AvancesEmail.html')
         d = Context({ 'username': 'ANGEL' })
         html_content = htmly.render(d)
-                
-                
         print titulo_mensaje
         print html_content
         print sender
         print recipients_final
         email = EmailMessage(titulo_mensaje, html_content, sender, [], recipients_final)
         email.send()
-        
->>>>>>> parent of 9cc6342... FIX - Se ordena codigo en views de noticias y avances
         ##Cambiar estatus de boletin
         c = Avances.objects.get(id=avance)
         c.status = "Enviado"
