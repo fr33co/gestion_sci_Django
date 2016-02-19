@@ -40,6 +40,22 @@ class DiarioAddView(FormView):
         return super(DiarioAddView, self).form_valid(form)
 
 
+#INDIVIDUAL DIARIOS
+class DiariosDetailView(DetailView):
+    model = Diarios
+    slug_field = 'id'
+    template_name="Diarios/singleDiarios.html"
+
+
+#ELIMINAR DIARIOS
+#ELIMINAR
+class DiariosDeleteView(DeleteView):
+    model = Diarios
+    slug_field = 'id'
+    template_name='Diarios/diarios_confirm_delete.html'
+    success_url = '/avances/Diariosver'
+
+
 #LISTAS NOTICIAS
 class NoticiasListView(ListView):
     model = Noticias

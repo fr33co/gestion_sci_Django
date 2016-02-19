@@ -9,6 +9,8 @@ urlpatterns = patterns('BoletinAvances.apps.avances.views',
     #Diarios
     url(r'^Diariosver/?$', login_required(DiariosListView.as_view()), name='ver_diarios'),
     url(r'^Diariosenviar/?$', login_required(DiarioAddView.as_view()), name='enviar_diarios'),
+    url(r'^Diariodetalle-(?P<slug>[-\w]+)/$', login_required(DiariosDetailView.as_view()), name='singlediarios_view'),
+    url(r'^Diariosdel-(?P<slug>[-\w]+)/$', login_required(DiariosDeleteView.as_view()), name='diario_delete'),
     #Noticias
     url(r'^Noticiasver/?$', login_required(NoticiasListView.as_view()), name='ver_noticias'),
     url(r'^Noticiasenviar/?$', login_required(NoticiasAddView.as_view()), name='enviar_noticia'),
