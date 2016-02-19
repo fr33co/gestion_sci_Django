@@ -48,7 +48,6 @@ class DiariosDetailView(DetailView):
 
 
 #ELIMINAR DIARIOS
-#ELIMINAR
 class DiariosDeleteView(DeleteView):
     model = Diarios
     slug_field = 'id'
