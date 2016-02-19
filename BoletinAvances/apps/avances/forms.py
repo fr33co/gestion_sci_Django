@@ -1,6 +1,12 @@
 from django import forms
 from django.forms.models import inlineformset_factory
-from BoletinAvances.apps.avances.models import Avances, Noticias
+from BoletinAvances.apps.avances.models import Avances, Diarios, Noticias
+
+
+class DiariosForm(forms.ModelForm):
+    class Meta:
+        model = Diarios
+        fields = '__all__'
 
 
 class AvancesForm(forms.ModelForm):
@@ -8,8 +14,8 @@ class AvancesForm(forms.ModelForm):
         model = Avances
         exclude = ('status',)
         fields = '__all__'
-        
-        
+
+
 class NoticiasForm(forms.ModelForm):
     class Meta:
         model = Noticias
@@ -18,4 +24,4 @@ class NoticiasForm(forms.ModelForm):
 
 
 NoticiasFormSet = inlineformset_factory(Avances, Noticias, fields = '__all__', can_delete=True, extra=0)
-item_forms = NoticiasFormSet() 
+item_forms = NoticiasFormSet()

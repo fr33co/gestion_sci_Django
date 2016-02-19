@@ -3,7 +3,7 @@
 {% load static %}
 
     <div class="wrapper">
-      
+
       <header class="main-header">
         <!-- Logo -->
         <a href="/tablero/" class="logo"><b>GestiónDBA</b></a>
@@ -95,7 +95,7 @@
               <a href="#">
                 <i class="fa fa-files-o"></i> <span>Gestión de Avances</span>
                 <i class="fa fa-angle-left pull-right"></i>
-              </a>        
+              </a>
               <ul class="treeview-menu">
                 <li>
                   <a href="#"><i class="fa fa-circle-o"></i> Noticias <i class="fa fa-angle-left pull-right"></i></a>
@@ -113,7 +113,7 @@
                 </li>
               </ul>
             </li>
-            <li class="treeview">
+            <!--<li class="treeview">
               <a href="#">
                 <i class="fa fa-bookmark"></i> <span>Resumen</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -151,18 +151,18 @@
               <ul class="treeview-menu">
                 <li><a href="{% url 'ver_avances' %}"><i class="fa fa-circle-o"></i> Ver enviados</a></li>
               </ul>
-            </li>
+            </li>-->
             <li class="header">ADMINISTRACIÓN</li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-star-o"></i> <span>Diarios</span>
+                <i class="fa fa-globe"></i> <span>Diarios</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{% url 'listas' %}"><i class="fa fa-circle-o"></i> Ver</a></li>
+                <li><a href="{% url 'ver_diarios' %}"><i class="fa fa-circle-o"></i> Ver</a></li>
               </ul>
               <ul class="treeview-menu">
-                <li><a href="{% url 'addlistas' %}"><i class="fa fa-circle-o"></i> Añadir</a></li>
+                <li><a href="{% url 'enviar_diarios' %}"><i class="fa fa-circle-o"></i> Añadir</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -215,9 +215,9 @@
       <!-- Content Wrapper. Contains page content -->
       <div id="content-wrapper" class="content-wrapper">
         <!-- Content Header (Page header) -->
-        
+
         {% block content-wrapper %}{% endblock content-wrapper %}
-      
+
       </div><!-- /.content-wrapper -->
 
       <footer class="main-footer">

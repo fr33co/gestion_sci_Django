@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = patterns('BoletinAvances.apps.avances.views',
+    #Diarios
+    url(r'^Diariosver/?$', login_required(DiariosListView.as_view()), name='ver_diarios'),
+    url(r'^Diariosenviar/?$', login_required(DiarioAddView.as_view()), name='enviar_diarios'),
     #Noticias
     url(r'^Noticiasver/?$', login_required(NoticiasListView.as_view()), name='ver_noticias'),
     url(r'^Noticiasenviar/?$', login_required(NoticiasAddView.as_view()), name='enviar_noticia'),
