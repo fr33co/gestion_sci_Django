@@ -132,7 +132,6 @@ class AvancesAddView(FormView):
         else:
             return self.form_invalid(form)
 
-
     def form_valid(self, form, **kwargs):
         """
         Called if all forms are valid. Creates a Avances instance along with
@@ -142,56 +141,74 @@ class AvancesAddView(FormView):
         self.object = form.save()
         avance = self.object.id
 
-        #Cambiar estatus a las noticias
-        context = self.get_context_data(**kwargs)
-        noticias =  context['Noticias']
-        for a in noticias:
-            print a.id
-            b = Noticias.objects.get(id=a.id)
-            b.status = "Enviado"
-            b.save()
-
         ### MODIFICAR SENDER
         sender = 'guadarramaangel@gmail.com'
         titulo_mensaje = self.object.titulo_mensaje
+        print titulo_mensaje
         cuerpo_mensaje = self.object.cuerpo_mensaje
         recipients = self.object.listas.all()
         recipients_final = []
         for lista in recipients:
-            print 'POR CORREO'
-            print recipients
-            print lista
             for contacto in Contactos.objects.filter(listas=lista):
-                print contacto
                 recipients_final.append(contacto.correo)
-        #Cambiar estatus a las noticias
+        #Pasar datos a plantilla
         context = self.get_context_data(**kwargs)
+        print "----CONTEXTO-----"
+        print context
         noticias =  context['Noticias']
+        print 'NOTICIAS'
+        print noticias
+        indices = self.request.POST['feeds']
+        indices = indices.split(',')
+        print "ESTOS SON LOS INDICES:  "
+        print indices
+        container = []
         for a in noticias:
-            n_fecha = a.fecha
-            n_hora = a.hora
-            n_titulo = a.titulo_noticia
-            n_url = a.url
-            n_noticia = a.noticia
-            data_noticias = {'fecha': n_fecha, 'hora': n_hora, 'titulo': n_titulo,
-                            'url': n_url, 'noticia': n_noticia}
-            b = Noticias.objects.get(id=a.id)
-            b.status = "Enviado"
-            b.save()
-        #Enviar correo
+            for i in indices:
+                if i == str(a.pk):
+                    feed = {}
+                    feed['id'] = a.pk
+                    feed['fecha'] = a.fecha
+                    feed['hora'] = a.hora
+                    feed['titulo'] = a.titulo_noticia
+                    feed['url'] = a.url
+                    feed['noticia'] = a.noticia
+                    diarios_lista = a.diarios.all()
+                    feed['diarios'] = diarios_lista
+                    print "--Datos Diarios--"
+                    print diarios_lista
+                    print "--Datos de Noticia--"
+                    print feed
+                    #Cambiar el status:
+                    b = Noticias.objects.get(pk = a.pk)
+                    b.status = "Enviado"
+                    b.save()
+                    #Llenando lista con noticias
+                    container.append(feed)
+        print container
+        #Render context a plantilla
         htmly = get_template('avances/AvancesEmail.html')
-        d = Context({ 'username': 'ANGEL' })
+        d = {'titulo_mensaje': titulo_mensaje,
+             'cuerpo_mensaje': cuerpo_mensaje,
+             'data_noticias': container}
+        #print 'D'
+        #print d
         html_content = htmly.render(d)
-        print titulo_mensaje
-        print html_content
-        print sender
-        print recipients_final
+        #Enviar correo
         email = EmailMessage(titulo_mensaje, html_content, sender, [], recipients_final)
+        email.content_subtype = 'html'
         email.send()
-        ##Cambiar estatus de boletin
-        c = Avances.objects.get(id=avance)
-        c.status = "Enviado"
-        c.save()
+        #Cambiar estatus a las noticias
+        # context = self.get_context_data(**kwargs)
+        # noticias =  context['Noticias']
+        # for a in noticias:
+        #      b = Noticias.objects.get(id=a.id)
+        #      b.status = "Enviado"
+        #      b.save()
+        # #Cambiar estatus de boletin
+        # c = Avances.objects.get(id=avance)
+        # c.status = "Enviado"
+        # c.save()
         return HttpResponseRedirect("/avances/Avancesver")
 
 

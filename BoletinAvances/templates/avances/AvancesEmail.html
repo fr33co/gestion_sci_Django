@@ -1,3 +1,46 @@
-Avance de noticias: 
+        <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <div class="container" style="min-width: 360px; max-width: 780px; font-family: Helvetica, 'Roboto'">
+            <div class="cabecera" style="width: 100%; margin-bottom: 1em;">
+                <img style="max-width: 100%; min-width:380px; height: auto;" src="http://www.carabobo.gob.ve/wp-content/uploads/2016/02/headercarabobo-01.png" alt="Gobernacion de Carabobo">
+            </div>
+            <div class="content">
+                <div class="info">
+                    <h2 style="font-size: bolder; color: #2E2E2E;"> {{ titulo_mensaje}}  </h2>
+                    <p style="color: #2E2E2E; text-align: justify;">
+                        {{ cuerpo_mensaje }}
+                    </p>
+                </div>
+                <div class="feeds">
+                    {% for data in data_noticias %}
+                    <div class="data"
+                    style="
+                    border-top-style: solid;
+                    border-top-width: thin;
+                    border-top-color: #F0F0F0;
+                    margin-bottom: 1em;">
 
-Hello <strong>{{ username }}</strong> - your account is activated.
+                        <h3 style="text-align:center; color: #3176B8"> {{ data.titulo }}</h3>
+                        <p>
+                            <span style="font-size:12px; color: #2E2E2E">
+                                Fecha: {{ data.fecha }} Hora: {{ data.hora}}
+                            </span>
+                        </p>
+                        <p style="font-size=14px; color: #2E2E2E; text-align: justify; ">
+                            {{ data.noticia}}
+                        </p>
+                        <div class="newspaper">
+                            {% for diario in data.diarios %}
+                            <p style="display: inline-block; font-size:14px; border-radius:4px; background-color: #F4F4F4; padding: 0.5em; color: #2E2E2E; font-weight: bold;">
+                                {{ diario }}
+                            </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="footer" style="background-color: #2E2E2E; color: #fff; text-align: center; padding:1.2em; font-weight:bold;">
+                    Gobernación Bolivariana de Carabobo | RIF: G-20000152-6<br/>
+                    Secretaría de Comunicación e Información | Dirección General de Informática
+            </div>
+        </div>
