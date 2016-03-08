@@ -23,14 +23,14 @@
                   <h3 class="box-title">Enviar Avance</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-					
+
 					<form id="multiselectForm" action="{% url 'enviar_avance' %}" method="post" enctype="multipart/form-data">
-					
+
 					  {% csrf_token %}
-												  
+
 						<div class="large-12 columns">
 							<div class="table-responsive" id="file_container" style="display:block">
-						
+
 								<table class="table">
 								  <tr>
 									<th style="width: 20%">Tipo de envio</th>
@@ -80,18 +80,18 @@
 										</select>
 									  </div>
 									</td>
-								  </tr>  
+								  </tr>
 								</table>
-				
+
 								<label for="titulomensaje"><h5>Titulo del mensaje:</h5></label>
 								<input type="text" style="width: 100%" maxlength="50" value="Avance del {% now 'd/m/Y' %} a las {% now 'h:i A' %}" class="form-control" required="require" id="titulo_mensaje" placeholder="Titulo del mensaje" name="titulo_mensaje">
 								<label for="cuerpomensaje"><h5>Cuerpo del mensaje:</h5></label>
 								<textarea style='width: 100%;' class="form-control" required maxlength="1000" rows="4" id='cuerpo_mensaje' value="{{ cuerpo_mensaje }}" name="cuerpo_mensaje"></textarea>
 								<input name="enviadopor" value={{ user.username }} required type="hidden" id="enviadopor"/>
-					  
+
 							</div>
 						</div>
-						
+
 						<div class="box-header" data-original-title>
 							<h2 class="box-title">Noticias que desea agregar:</h2>
 						</div>
@@ -117,12 +117,13 @@
 							  <td name="status_noticia">{{ p.status }}</td>
 							</tr>
 							{% endfor %}
-						  </tbody>  
+						  </tbody>
 						</table>
 
 						<hr>
+                        <input type="text" name="feeds" value="" hidden="true" id="feeds">
 						<button type="submit" id="submit-all" class="btn btn-block btn-primary btn-lg">Enviar avance</button>
-						
+
 					</form>
 					<div id="contentPost"></div>
                 </div><!-- /.box-body -->
