@@ -111,41 +111,6 @@
 			  }
 		 return cookieValue;
 		}
-
-        // $('#example2 tbody').on( 'click', 'tr', function (e) {
-        //     $(this).toggleClass('selected');
-        //
-		// 	e.preventDefault();
-		// 	var id = $(this).attr('value');
-		// 	var csrftoken = getCookie('csrftoken');
-		// 	array.push(id);
-		// 	console.log(id);
-		// 	console.log(array);
-		// 	$.ajax({
-        //         type:"GET",
-		// 		contentType: 'application/json; charset=utf-8',
-        //         //url:"/avances/Noticiasdetalle-" + id + "/",
-		// 		url:"/avances/Avancesenviar",
-        //         data: {
-        //                 csrfmiddlewaretoken : csrftoken,
-		// 				//'noticia': id, // from form
-		// 				'valores': array
-        //                 },
-		// 		success : function(data) {
-		// 		  console.log(data); // another sanity check
-		// 		  //On success show the data posted to server as a message
-		// 		  //alert('Hi   '+id +'!.' + '  La noticia es:'+ id);
-        //
-		// 		},
-		// 		error : function(xhr,errmsg,err) {
-		// 		  console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-		// 		}
-        //     });
-		// 	return false;
-        //
-        //   });
-
-        //   NUEVO SCRIPT
         //contenedor para los id de las nocitias
         arre = [];
         $('#example2 tbody').on( 'click', 'tr', function (e) {
