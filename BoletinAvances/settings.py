@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'BoletinAvances.apps.boletines',
     'BoletinAvances.apps.avances',
     'BoletinAvances.apps.primerasplanas',
+    'BoletinAvances.apps.resumen',
 )
 
 MIDDLEWARE_CLASSES = (
