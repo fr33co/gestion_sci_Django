@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^boletines/', include('BoletinAvances.apps.boletines.urls')),
     url(r'^avances/', include('BoletinAvances.apps.avances.urls')),
 	url(r'^primerasplanas/', include('BoletinAvances.apps.primerasplanas.urls')),
+    url(r'^resumen/', include('BoletinAvances.apps.resumen.urls')),
 )
