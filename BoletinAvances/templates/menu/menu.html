@@ -115,13 +115,24 @@
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-bookmark"></i> <span>Resumen</span>
+                <i class="fa fa-bookmark"></i> <span>Gestión de Resumen </span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{% url 'ver_resumen' %}"><i class="fa fa-circle-o"></i> Ver enviados</a></li>
-                <li><a href="{% url 'ver_resumen' %}"><i class="fa fa-circle-o"></i> Escribir resumen</a></li>
-                <li><a href="{% url 'ver_resumen' %}"><i class="fa fa-circle-o"></i> Enviar resumen</a></li>
+                <li>
+                  <a href="#"><i class="fa fa-circle-o"></i> Redacción <i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a href="{% url 'ver_noticia_resumen' %}"><i class="fa fa-circle-o"></i> Listar enviados</a></li>
+                    <li><a href="{% url 'enviar_noticia_resumen' %}"><i class="fa fa-circle-o"></i> Enviar nuevo</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-circle-o"></i> Resumen <i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a href="{% url 'ver_resumen' %}"><i class="fa fa-circle-o"></i> Ver enviados</a></li>
+                    <li><a href="{% url 'enviar_resumen' %}"><i class="fa fa-circle-o"></i> Enviar nuevo</a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
             <!--<li class="treeview">
