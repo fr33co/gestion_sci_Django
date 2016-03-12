@@ -1,5 +1,5 @@
 from django.contrib import admin
-from BoletinAvances.apps.resumen.models import Resumen, UrlResumen, TagsResumen
+from BoletinAvances.apps.resumen.models import Resumen, NoticiaResumen
 # Register your models here.
 
 class ResumenInlineAdmin(admin.TabularInline):
@@ -9,19 +9,20 @@ class ResumenInlineAdmin(admin.TabularInline):
     extra = 0
 
 class ResumenAdmin(admin.ModelAdmin):
-    list_display = ('tag_resumen', 'titulo_resumen', 'texto_resumen', 'get_url_resumen',)
-    search_list = ['tag_resumen',]
-    ordering = ('tag_resumen',)
+    list_display = ('titulo_mensaje','fecha', 'status', 'enviadopor',)
+    search_list = ['fecha', 'status',]
+    ordering = ('fecha', 'status', 'enviadopor',)
     fieldsets = (
             ('Campos', {
-                'fields' : ('tag_resumen', 'titulo_resumen', 'texto_resumen', 'url_resumen')
+                'fields' : ('titulo_mensaje', 'cuerpo_mensaje', 'fecha', 'status', 'enviadopor',)
             }),
     )
     inline = ResumenInlineAdmin
 
-class UrlResumenAdmin(admin.ModelAdmin):
-    list_display = ('url',)
+class NoticiaResumenAdmin(admin.ModelAdmin):
+    list_display = ('titulo_noticia_resumen', 'cuerpo_noticia_resumen', 'tag_noticia_resumen', 'url_noticia_resumen',)
+    search_list = ['tag_noticia_resumen',]
+
 
 admin.site.register(Resumen, ResumenAdmin)
-admin.site.register(UrlResumen, UrlResumenAdmin)
-admin.site.register(TagsResumen)
+admin.site.register(NoticiaResumen, NoticiaResumenAdmin)
