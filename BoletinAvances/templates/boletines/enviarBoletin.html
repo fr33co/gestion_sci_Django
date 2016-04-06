@@ -13,7 +13,7 @@
 		  float: right;
 		  margin-top:-1.6%;
 		}
-		
+
 	</style>
 
         <section class="content-header">
@@ -37,14 +37,14 @@
                   <h3 class="box-title">Enviar Boletin</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-					
+
 					<form id="multiselectForm" action="{% url 'enviar_boletin' %}" method="post" enctype="multipart/form-data">
-					
-					  {% csrf_token %}	  
-					
+
+					  {% csrf_token %}
+
 						<div class="large-12 columns">
 							<div class="table-responsive" id="form_data">
-						
+
 								<table class="table">
 								  <tr>
 									<th style="width: 20%">Tipo de envio</th>
@@ -94,30 +94,30 @@
 										</select>
 									  </div>
 									</td>
-								  </tr>  
+								  </tr>
 								</table>
-				
+
 								<label for="titulomensaje"><h5>Titulo del mensaje:</h5></label>
 								<input type="text" style="width: 100%" maxlength="50" class="form-control" required="require" id="titulo_mensaje" placeholder="Titulo del mensaje" name="titulo_mensaje">
 								<label for="cuerpomensaje"><h5>Cuerpo del mensaje:</h5></label>
 								<textarea style='width: 100%;' class="form-control" required maxlength="1000" rows="4" id='cuerpo_mensaje' value="{{ cuerpo_mensaje }}" name="cuerpo_mensaje"></textarea>
-								<input name="enviadopor" value={{ user.username }} required type="hidden" id="enviadopor"/>
-					  
+								<input name="enviadopor" value="{{ user.username }}" required type="hidden" id="enviadopor"/>
+
 							</div>
-		
+
 							<div id="file_container">
 							  <div class="formset" id="formset" data-formset-prefix="{{ formset.prefix }}">
 								<div class="box-header" data-original-title>
 								  <h2 class="box-title">Archivos que desea adjuntar:</h2>
 								</div>
-								
+
 								  {{ formset.media }}
 								  {% load formset_tags %}
 								  {{ formset.management_form }}
-								  
+
 								  <!-- This button will add a new form when clicked -->
 								  <button type="button" class="btn btn-block btn-success btn-lg" data-formset-add>Añadir Archivo(s)</button>
-								  
+
 								  <div data-formset-body>
 									<!-- New forms will be inserted in here -->
 									{% for form in formset %}
@@ -127,11 +127,11 @@
 										</div>
 									{% endfor %}
 								  </div>
-					
+
 								  <!-- The empty form template. By wrapping this in a <script> tag, the
 								  __prefix__ placeholder can easily be replaced in both attributes and
 								  any scripts -->
-								  
+
 								  <script type="form-template" data-formset-empty-form>
 								  {% escapescript %}
 									  <div class="dropzone" id="dropzone" data-formset-form>
@@ -142,7 +142,7 @@
 									  </div>
 								  {% endescapescript %}
 								  </script>
-							  
+
 								  <script>
 								  jQuery(function($) {
 								  $("#formset").formset({
@@ -150,19 +150,19 @@
 									  'reorderMode': 'animate',
 									});
 								  });
-							  
+
 								  </script>
-								  
+
 							  </div>
 							</div>
-														
+
 						</div>
-						
+
 						<hr>
 						<button type="submit" id="submit-all" class="btn btn-block btn-primary btn-lg">Enviar boletín</button>
-					  						
+
 					</form>
-					
+
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->

@@ -1,7 +1,7 @@
 {% extends 'menu/menu.html' %}
 {% block content-wrapper %}
-{% load static %} 
-    
+{% load static %}
+
         <section class="content-header">
           <h1>
             Avances
@@ -38,7 +38,7 @@
                     <tbody>
                       {% for p in Avances %}
                       <tr>
-                        <td>{{ p.fecha|date:"d/m/Y" }}</td>
+                        <td>{{ p.fecha|date:"Y/m/d" }}</td>
                         <td>{{ p.hora|date:"h:i A" }}</td>
                         <td>{{ p.enviadopor }}</td>
                         <td>{{ p.titulo_mensaje }}</td>
@@ -47,7 +47,7 @@
                         <td><a href="{% url 'avance_delete' p.id %}"><button style="width:100px" type="button" class="btn btn-danger btn-xs">Eliminar <span class="glyphicon glyphicon-fire"></span></button></a></td>
                       </tr>
                       {% endfor %}
-                    </tbody>  
+                    </tbody>
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

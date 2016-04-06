@@ -84,7 +84,7 @@
 								</table>
 
 								<label for="titulomensaje"><h5>Titulo del mensaje:</h5></label>
-								<input type="text" style="width: 100%" maxlength="50" value="Avance del {% now 'd/m/Y' %} a las {% now 'h:i A' %}" class="form-control" required="require" id="titulo_mensaje" placeholder="Titulo del mensaje" name="titulo_mensaje">
+								<input type="text" style="width: 100%" maxlength="50" value="Avance del {% now 'd/m/Y' %} (Bloque de las {% now 'h:i A' %})" class="form-control" required="require" id="titulo_mensaje" placeholder="Titulo del mensaje" name="titulo_mensaje">
 								<label for="cuerpomensaje"><h5>Cuerpo del mensaje:</h5></label>
 								<textarea style='width: 100%;' class="form-control" required maxlength="1000" rows="4" id='cuerpo_mensaje' value="{{ cuerpo_mensaje }}" name="cuerpo_mensaje"></textarea>
 								<input name="enviadopor" value={{ user.username }} required type="hidden" id="enviadopor"/>
