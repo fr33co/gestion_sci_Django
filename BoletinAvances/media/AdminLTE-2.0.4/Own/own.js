@@ -2,14 +2,14 @@ function theRotator() {
 	//Set the opacity of all images to 0
 	$('div.rotator ul li').css({opacity: 0.0});
 	//Get the first image and display it (gets set to full opacity)
-	$('div.rotator ul li:first').css({opacity: 1.0});	
+	$('div.rotator ul li:first').css({opacity: 1.0});
 	//Call the rotator function to run the slideshow, 6000 = change to next image after 6 seconds
 	if ($('div.rotator ul li').length > 1) {
 		setTimeout('rotate()', 6000);
 	}
 }
 
-function rotate() {	
+function rotate() {
 	//Get the first image
 	var current = ($('div.rotator ul li.show')? $('div.rotator ul li.show') : $('div.rotator ul li:first'));
 	if ( current.length == 0 ) current = $('div.rotator ul li:first');
@@ -25,14 +25,13 @@ function rotate() {
 		current.animate({opacity: 0.0}, 1000, function(){setTimeout('rotate()', 6000);}) .removeClass('show');
 };
 
-$(document).ready(function() {		
+$(document).ready(function() {
 	//Load the slideshow
 	theRotator();
 	$('div.rotator').fadeIn(1000);
 	$('div.rotator ul li').fadeIn(1000); // tweek for IE
 	});
 
-	$(function(){
-		$("ul#ticker01").liScroll();
-	}); 
-
+		/*$(function(){
+			$("ul#ticker01").liScroll();
+		}); */
