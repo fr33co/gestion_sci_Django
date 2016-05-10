@@ -109,8 +109,8 @@ class NoticiasAddView(FormView):
         formset.instance = self.object
         formset.save()
         noti = self.object.id
-        # return super(NoticiasAddView, self).form_valid(form)
-        return HttpResponseRedirect('/avances/Noticiasenviar')
+        #return super(NoticiasAddView, self).form_valid(form)
+        return HttpResponseRedirect('/avances/Noticiasver')
 
     def form_invalid(self, form, formset):
         """
