@@ -7,8 +7,8 @@ from BoletinAvances.apps.listas.models import Listas
 from BoletinAvances.apps.listas.forms import ListasForm
 from BoletinAvances.apps.contactos.models import Contactos
 from BoletinAvances.apps.contactos.forms import ContactosForm
-from BoletinAvances.apps.avances.models import Avances, Diarios, Noticias
-from BoletinAvances.apps.avances.forms import AvancesForm, DiariosForm, NoticiasForm, NoticiasFormSet
+from BoletinAvances.apps.avances.models import Avances, Diarios, Noticias, EnlaceDiarios
+from BoletinAvances.apps.avances.forms import AvancesForm, DiariosForm, NoticiasForm, NoticiasFormSet, EnlaceDiariosFormSet
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import BadHeaderError, EmailMessage
@@ -66,14 +66,61 @@ class NoticiasListView(ListView):
 #CREAR NOTICIAS
 class NoticiasAddView(FormView):
     form_class = NoticiasForm
+    model = Noticias
     success_url = reverse_lazy('ver_noticias')
     template_name = "Noticias/enviarNoticia.html"
+    formset = EnlaceDiariosFormSet()
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = EnlaceDiariosFormSet(instance=Noticias())
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  formset=formset))
+
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            noticia = form.save(commit=False)
+            formset = EnlaceDiariosFormSet(request.POST, instance=noticia)
+            if (form.is_valid() and formset.is_valid()):
+                return self.form_valid(form, formset)
+            else:
+                return self.form_invalid(form, formset)
+
 
     def form_valid(self, form):
         form.instance.status = 'Borrador'
-        form.save(commit=True)
-        messages.success(self.request, 'Noticia cargada!', fail_silently=True)
-        return super(NoticiasAddView, self).form_valid(form)
+        noticia = form.save(commit=True)
+        formset.instance = self.object
+        formset.save()
+        noti = self.object.id
+        # return super(NoticiasAddView, self).form_valid(form)
+        return HttpResponseRedirect('/avances/Noticiasenviar')
+
+    def form_invalid(self, form, formset):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  formset=formset))
+
 
 
 #INDIVIDUAL NOTICIAS
@@ -164,7 +211,7 @@ class AvancesAddView(FormView):
                     feed['fecha'] = a.fecha
                     feed['hora'] = a.hora
                     feed['titulo'] = a.titulo_noticia
-                    feed['url'] = a.url
+                    #feed['url'] = a.url
                     feed['noticia'] = a.noticia
                     diarios_lista = a.diarios.all()
                     feed['diarios'] = diarios_lista

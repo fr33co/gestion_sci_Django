@@ -15,7 +15,7 @@ class Avances(models.Model):
    tipo_envio = models.CharField(max_length=20, choices=TIPO_ENVIO, default='', verbose_name='Tipo de envio')
    status = models.CharField(max_length=110, verbose_name='Status', blank=True, null=True)
    listas = models.ManyToManyField(Listas)
-   titulo_mensaje = models.CharField(max_length=110, verbose_name='Titulo')
+   titulo_mensaje = models.CharField(max_length=1000, verbose_name='Titulo')
    cuerpo_mensaje = models.TextField(verbose_name='Cuerpo del mensaje')
    enviadopor = models.CharField(max_length=50, verbose_name='Enviado por:')
 
@@ -51,19 +51,33 @@ class Noticias(models.Model):
     avances = models.ForeignKey(Avances, verbose_name='Avances', blank=True, null=True)
     diarios = models.ManyToManyField(Diarios)
     fecha = models.DateField(default=datetime.now, blank=True)
-    hora = models.TimeField(auto_now_add=True, blank=True)
+    hora = models.TimeField(auto_now_add=True, blank=True, null=True)
     status = models.CharField(max_length=110, verbose_name='Status', blank=True, null=True)
     enviadopor = models.CharField(max_length=50, verbose_name='Enviado por:')
-    titulo_noticia = models.CharField(max_length=110, verbose_name='Titulo')
+    titulo_noticia = models.CharField(max_length=500, verbose_name='Titulo')
+    antetitulo_noticia = models.CharField(max_length=500, verbose_name='Antetitulo', blank=True)
     enviadopor = models.CharField(max_length=50, verbose_name='Enviado por:')
     noticia = models.TextField(verbose_name='Extracto de la noticia')
-    url = models.CharField(max_length=110, verbose_name='URL')
 
     class Meta:
         verbose_name_plural = "Agregar noticias para avances"
-        ordering = ('url', 'status')
+        ordering = ('status',)
 
     def __unicode__(self):
         ''':return: Representacion en cadena de la clase noticias'''
-        noticia = "ID: %s - Titulo de noticia: %s - URL: %s" % (self.id, self.titulo_noticia, self.url)
+        noticia = "ID: %s - Titulo de noticia: %s " % (self.id, self.titulo_noticia)
         return noticia
+
+class EnlaceDiarios(models.Model):
+    ''' Clase para vincular enlaces con Diarios '''
+    diario = models.ForeignKey(Diarios)
+    noticia = models.ForeignKey(Noticias)
+    url = models.URLField(verbose_name='Enlace de noticia')
+
+    class Meta:
+        verbose_name_plural = "Enlace de Noticias"
+        ordering = ('diario', 'noticia', 'url')
+
+    def __unicode__(self):
+        url = "Noticia: %s - URL: %s" % (self.noticia, self.url)
+        return url

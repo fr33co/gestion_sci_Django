@@ -97,20 +97,10 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li>
-                  <a href="#"><i class="fa fa-circle-o"></i> Noticias <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                     <li><a href="{% url 'ver_noticias' %}"><i class="fa fa-circle-o"></i> Listar enviadas</a></li>
-                    <li><a href="{% url 'enviar_noticia' %}"><i class="fa fa-circle-o"></i> Enviar nueva</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-circle-o"></i> Avances <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                     <li><a href="{% url 'ver_avances' %}"><i class="fa fa-circle-o"></i> Ver enviados</a></li>
-                    <li><a href="{% url 'enviar_avance' %}"><i class="fa fa-circle-o"></i> Enviar nuevo</a></li>
-                  </ul>
-                </li>
+                <li><a href="{% url 'enviar_noticia' %}"><i class="fa fa-circle-o"></i> Cargar Avance</a></li>
+                <li><a href="{% url 'ver_noticias' %}"><i class="fa fa-circle-o"></i> Listar avances Cargados</a></li>
+                <li><a href="{% url 'ver_avances' %}"><i class="fa fa-circle-o"></i> Bloque de Avances enviados</a></li>
+                <li><a href="{% url 'enviar_avance' %}"><i class="fa fa-circle-o"></i> Enviar Avance</a></li>
               </ul>
             </li>
             <li class="treeview">
