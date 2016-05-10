@@ -26,8 +26,8 @@ class EnlaceDiariosForm(forms.ModelForm):
     class Meta:
         model = EnlaceDiarios
         exclude = ('noticias',)
-        field = '__all__'
+        fields = '__all__'
 
 NoticiasFormSet = inlineformset_factory(Avances, Noticias, fields = '__all__', can_delete=True, extra=0)
-EnlaceDiariosFormSet = inlineformset_factory(Noticias, EnlaceDiarios, fields = '__all__', can_delete=True, extra=0)
 item_forms = NoticiasFormSet()
+EnlaceDiariosFormSet = inlineformset_factory(Noticias, EnlaceDiarios, fields = '__all__', can_delete=True, extra=0)

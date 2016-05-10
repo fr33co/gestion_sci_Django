@@ -65,17 +65,14 @@ class NoticiasListView(ListView):
 
 #CREAR NOTICIAS
 class NoticiasAddView(FormView):
-    form_class = NoticiasForm
     model = Noticias
+    form_class = NoticiasForm
+    formset = EnlaceDiariosFormSet()
     success_url = reverse_lazy('ver_noticias')
     template_name = "Noticias/enviarNoticia.html"
-    formset = EnlaceDiariosFormSet()
+
 
     def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and instantiates blank versions of the form
-        and its inline formsets.
-        """
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
@@ -86,31 +83,31 @@ class NoticiasAddView(FormView):
 
 
     def post(self, request, *args, **kwargs):
-        """
-        Handles POST requests, instantiating a form instance and its inline
-        formsets with the passed POST variables and then checking them for
-        validity.
-        """
         self.object = None
         form_class = self.get_form_class()
+        print form_class
         form = self.get_form(form_class)
-        if form.is_valid():
-            noticia = form.save(commit=False)
-            formset = EnlaceDiariosFormSet(request.POST, instance=noticia)
-            if (form.is_valid() and formset.is_valid()):
-                return self.form_valid(form, formset)
-            else:
-                return self.form_invalid(form, formset)
+        print form
+        noticias = form.save()
+        print noticias
+        formset = EnlaceDiariosFormSet(request.POST, request.FILES, instance=noticias)
+        if (form.is_valid() and formset.is_valid()):
+            return self.form_valid(form, formset)
+        else:
+            return self.form_invalid(form, formset)
 
 
-    def form_valid(self, form):
+    def form_valid(self, form, formset):
         form.instance.status = 'Borrador'
-        noticia = form.save(commit=True)
+        self.object = form.save()
         formset.instance = self.object
         formset.save()
-        noti = self.object.id
-        #return super(NoticiasAddView, self).form_valid(form)
-        return HttpResponseRedirect('/avances/Noticiasver')
+        noticia = self.object.id
+        c = Noticias.objects.get(id=self.object.id)
+        c.status = "Enviado"
+        c.save()
+        return HttpResponseRedirect("avances/Avancesver")
+
 
     def form_invalid(self, form, formset):
         """

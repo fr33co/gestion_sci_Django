@@ -49,7 +49,7 @@ class Noticias(models.Model):
     '''Clase para noticias'''
     #Campos necesarios
     avances = models.ForeignKey(Avances, verbose_name='Avances', blank=True, null=True)
-    diarios = models.ManyToManyField(Diarios)
+    #diarios = models.ManyToManyField(Diarios)
     fecha = models.DateField(default=datetime.now, blank=True)
     hora = models.TimeField(auto_now_add=True, blank=True, null=True)
     status = models.CharField(max_length=110, verbose_name='Status', blank=True, null=True)
