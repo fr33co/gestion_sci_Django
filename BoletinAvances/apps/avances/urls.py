@@ -15,6 +15,7 @@ urlpatterns = patterns('BoletinAvances.apps.avances.views',
     url(r'^Noticiasver/?$', login_required(NoticiasListView.as_view()), name='ver_noticias'),
     url(r'^Noticiasenviar/?$', login_required(NoticiasAddView.as_view()), name='enviar_noticia'),
     url(r'^Noticiasdetalle-(?P<slug>[-\w]+)/$', login_required(NoticiasDetailView.as_view()), name='singlenoticias_view'),
+    url(r'^Noticiasdel-(?P<slug>[-\w]+)/$', login_required(NoticiasDeleteView.as_view()), name='noticia_delete'),
     #Avances
     url(r'^Avancesver/?$', login_required(AvancesListView.as_view()), name='ver_avances'),
     url(r'^Avancesenviar/?$', login_required(AvancesAddView.as_view()), name='enviar_avance'),

@@ -39,13 +39,11 @@ class DiarioAddView(FormView):
         messages.success(self.request, 'Diario cargado!', fail_silently=True)
         return super(DiarioAddView, self).form_valid(form)
 
-
 #INDIVIDUAL DIARIOS
 class DiariosDetailView(DetailView):
     model = Diarios
     slug_field = 'id'
     template_name="Diarios/singleDiarios.html"
-
 
 #ELIMINAR DIARIOS
 class DiariosDeleteView(DeleteView):
@@ -54,14 +52,12 @@ class DiariosDeleteView(DeleteView):
     template_name='Diarios/diarios_confirm_delete.html'
     success_url = '/avances/Diariosver'
 
-
 #LISTAS NOTICIAS
 class NoticiasListView(ListView):
     model = Noticias
     queryset = Noticias.objects.order_by('id')
     context_object_name = "Noticias"
     template_name = "Noticias/listaNoticias.html"
-
 
 #CREAR NOTICIAS
 class NoticiasAddView(FormView):
@@ -71,7 +67,6 @@ class NoticiasAddView(FormView):
     success_url = reverse_lazy('ver_noticias')
     template_name = "Noticias/enviarNoticia.html"
 
-
     def get(self, request, *args, **kwargs):
         self.object = None
         form_class = self.get_form_class()
@@ -80,7 +75,6 @@ class NoticiasAddView(FormView):
         return self.render_to_response(
             self.get_context_data(form=form,
                                   formset=formset))
-
 
     def post(self, request, *args, **kwargs):
         self.object = None
@@ -96,7 +90,6 @@ class NoticiasAddView(FormView):
         else:
             return self.form_invalid(form, formset)
 
-
     def form_valid(self, form, formset):
         form.instance.status = 'Borrador'
         self.object = form.save()
@@ -106,8 +99,7 @@ class NoticiasAddView(FormView):
         c = Noticias.objects.get(id=self.object.id)
         c.status = "Enviado"
         c.save()
-        return HttpResponseRedirect("avances/Avancesver")
-
+        return super(NoticiasAddView, self).form_valid(form)
 
     def form_invalid(self, form, formset):
         """
@@ -119,13 +111,20 @@ class NoticiasAddView(FormView):
                                   formset=formset))
 
 
-
 #INDIVIDUAL NOTICIAS
 class NoticiasDetailView(DetailView):
     model = Noticias
     slug_field = 'id'
     template_name="Noticias/singlenoticias.html"
 
+#ELIMINAR NOTICIAS
+class NoticiasDeleteView(DeleteView):
+    model = Noticias
+    slug_field = 'id'
+    success_url = '/avances/Noticiasver'
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
 
 #LISTAS AVANCES
 class AvancesListView(ListView):

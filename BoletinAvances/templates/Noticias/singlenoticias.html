@@ -24,42 +24,42 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
 
-					<form id="multiselectForm" action="{% url 'enviar_noticia' %}" method="post" enctype="multipart/form-data">
+        					<form id="multiselectForm" action="{% url 'enviar_noticia' %}" method="post" enctype="multipart/form-data">
 
-						<div class="large-12 columns">
-							<div class="table-responsive" id="file_container" style="display:block">
+        						<div class="large-12 columns">
+        							<div class="table-responsive" id="file_container" style="display:block">
 
-								<table class="table">
-								  <tr>
-									<th style="width: 20%">Fecha</th>
-									<th style="width: 20%">Hora</th>
-									<th style="width: 20%">Enviado por</th>
-								  </tr>
-								  <tr>
-									<td>
-									  <input type="text" value="{{ object.fecha|date:'d/m/Y' }}" readonly name="fecha">
-									</td>
-									<td>
-									   <input type="text" value="{{ object.hora|date:'h:i A' }}" readonly name="hora">
-									</td>
-									<td>
-									  <input type="text" value="{{ object.enviadopor }}" readonly name="enviadopor">
-									</td>
-								  </tr>
-								</table>
-                                <label for="titulomensaje"><h5>Antetitulo de la noticia:</h5></label>
-                                <input type="text" style="width: 100%" value="{{ object.antetitulo_noticia }}" readonly name="antetitulo_noticia">
-								<label for="titulomensaje"><h5>Titulo de la noticia:</h5></label>
-								<input type="text" style="width: 100%" value="{{ object.titulo_noticia }}" readonly name="titulo_noticia">
-								<label for="titulomensaje"><h5>Dirección web de la noticia:</h5></label>
-								<input type="text" style="width: 100%" value="{{ object.url }}" readonly name="url">
-								<label for="cuerpomensaje"><h5>Resumen de la noticia:</h5></label>
-								<textarea style='width: 100%;' readonly class="form-control" maxlength="1000" rows="4" value="{{ object.noticia }}" name="noticia">{{ object.noticia }}</textarea>
+        								<table class="table">
+        								  <tr>
+        									<th style="width: 20%">Fecha</th>
+        									<th style="width: 20%">Hora</th>
+        									<th style="width: 20%">Enviado por</th>
+        								  </tr>
+        								  <tr>
+        									<td>
+        									  <input type="text" value="{{ object.fecha|date:'d/m/Y' }}" readonly name="fecha">
+        									</td>
+        									<td>
+        									   <input type="text" value="{{ object.hora|date:'h:i A' }}" readonly name="hora">
+        									</td>
+        									<td>
+        									  <input type="text" value="{{ object.enviadopor }}" readonly name="enviadopor">
+        									</td>
+        								  </tr>
+        								</table>
+                                        <label for="titulomensaje"><h5>Antetitulo de la noticia:</h5></label>
+                                        <input type="text" style="width: 100%" value="{{ object.antetitulo_noticia }}" readonly name="antetitulo_noticia">
+        								<label for="titulomensaje"><h5>Titulo de la noticia:</h5></label>
+        								<input type="text" style="width: 100%" value="{{ object.titulo_noticia }}" readonly name="titulo_noticia">
+        								<label for="titulomensaje"><h5>Dirección web de la noticia:</h5></label>
+        								<input type="text" style="width: 100%" value="{{ object.url }}" readonly name="url">
+        								<label for="cuerpomensaje"><h5>Resumen de la noticia:</h5></label>
+        								<textarea style='width: 100%;' readonly class="form-control" maxlength="1000" rows="4" value="{{ object.noticia }}" name="noticia">{{ object.noticia }}</textarea>
 
-							</div>
-						</div>
+        							</div>
+        						</div>
 
-					</form>
+        					</form>
 
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

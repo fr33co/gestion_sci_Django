@@ -44,7 +44,7 @@
                         <td>{{ p.titulo_noticia }}</td>
                         <td>{{ p.status }}</td>
                         <td><a href="{% url 'singlenoticias_view' p.id %}"><button style="width:100px" type="button" class="btn btn-default btn-xs">Visualizar <span class="glyphicon glyphicon-pencil"></span></button></a></td>
-                        <td><a href="{% url 'avance_delete' p.id %}"><button style="width:100px" type="button" class="btn btn-danger btn-xs">Eliminar <span class="glyphicon glyphicon-fire"></span></button></a></td>
+                        <td><a href="{% url 'noticia_delete' p.id %}"><button style="width:100px" type="button" class="btn btn-danger btn-xs">Eliminar <span class="glyphicon glyphicon-fire"></span></button></a></td>
                       </tr>
                       {% endfor %}
                     </tbody>
