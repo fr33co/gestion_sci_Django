@@ -8,11 +8,23 @@ TIPO_ENVIO = (
     ('Programado', 'Programado'),
 )
 
+
+TAG = (
+    ('0', '----'),
+    ('REG', 'Regionales'),
+    ('NAC', 'Nacionales'),
+    ('INT', 'Internacionales'),
+    ('ECO', 'Economia'),
+    ('DEP', 'Deporte'),
+    ('SUC', 'Sucesos'),
+)
+
+
 class Avances(models.Model):
    '''Clase para los avances'''
    fecha = models.DateField(default=datetime.now, blank=True)
    hora = models.TimeField(auto_now_add=True, blank=True)
-   tipo_envio = models.CharField(max_length=20, choices=TIPO_ENVIO, default='', verbose_name='Tipo de envio')
+   tipo_envio = models.CharField(max_length=20, choices=TIPO_ENVIO, default='0', verbose_name='Tipo de envio')
    status = models.CharField(max_length=110, verbose_name='Status', blank=True, null=True)
    listas = models.ManyToManyField(Listas)
    titulo_mensaje = models.CharField(max_length=1000, verbose_name='Titulo')
@@ -49,9 +61,9 @@ class Noticias(models.Model):
     '''Clase para noticias'''
     #Campos necesarios
     avances = models.ForeignKey(Avances, verbose_name='Avances', blank=True, null=True)
-    #diarios = models.ManyToManyField(Diarios)
     fecha = models.DateField(default=datetime.now, blank=True)
     hora = models.TimeField(auto_now_add=True, blank=True, null=True)
+    tag = models.CharField(max_length=30, verbose_name='Etiqueta', choices=TAG, default='')
     status = models.CharField(max_length=110, verbose_name='Status', blank=True, null=True)
     enviadopor = models.CharField(max_length=50, verbose_name='Enviado por:')
     titulo_noticia = models.CharField(max_length=500, verbose_name='Titulo')
@@ -67,6 +79,7 @@ class Noticias(models.Model):
         ''':return: Representacion en cadena de la clase noticias'''
         noticia = "ID: %s - Titulo de noticia: %s " % (self.id, self.titulo_noticia)
         return noticia
+
 
 class EnlaceDiarios(models.Model):
     ''' Clase para vincular enlaces con Diarios '''

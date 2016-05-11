@@ -34,6 +34,7 @@
 								  <tr>
 									<th style="width: 20%">Fecha</th>
 									<th style="width: 20%">Hora</th>
+                  <th style="width: 20%">Etiqueta</th>
 								  </tr>
 								  <tr>
 									<td>
@@ -61,10 +62,24 @@
 										</div><!-- /.form group -->
 									  </div>
 									</td>
+                  <td>
+									  <div style="width: 100%">
+										<div class="form-group">
+										  <div class="input-group">
+                        <select style="width: 100%" class="form-control" id="tag" name="tag" value="{{ form.tag.value|default_if_none:'' }}" required>
+                            {% for x,y in form.fields.tag.choices %}
+                                <option value="{{ x }}"{% if form.fields.tag.value == x %} {% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
+										  </div><!-- /.input group -->
+										</div><!-- /.form group -->
+									  </div>
+									</td>
+
 								  </tr>
 								</table>
 
-                                <label for="titulomensaje"><h5>Antetítulo de la noticia:</h5></label>
+                <label for="titulomensaje"><h5>Antetítulo de la noticia:</h5></label>
 								<input type="text" style="width: 100%" class="form-control" id="antetitulo_noticia" placeholder="Antetitulo de la noticia" name="antetitulo_noticia">
 								<label for="titulomensaje"><h5>Titulo de la noticia:</h5></label>
 								<input type="text" style="width: 100%" class="form-control" required="require" id="titulo_noticia" placeholder="Titulo de la noticia" name="titulo_noticia">

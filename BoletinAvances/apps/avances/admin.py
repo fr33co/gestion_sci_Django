@@ -31,21 +31,6 @@ class DiariosAdmin(admin.ModelAdmin):
             }),
         )
 
-class NoticiasAdmin(admin.ModelAdmin):
-    list_display = ('status', 'enviadopor', 'fecha', 'titulo_noticia', 'noticia',)
-    search_fields = ['status', 'enviadopor', 'fecha', 'titulo_noticia', 'noticia',]
-    ordering = ('status', 'enviadopor', 'fecha', 'titulo_noticia', 'noticia',)
-    fieldsets = (
-            ('Campos esenciales', {
-                'fields': ('avances', 'status', 'enviadopor', 'fecha', 'antetitulo_noticia', 'titulo_noticia', 'noticia',)
-            }),
-        )
-
-class EnlaceDiariosInlineAdmin(admin.TabularInline):
-    verbose_name = "Enlace"
-    verbose_name_plural = "Enlaces"
-    model = EnlaceDiarios
-    extra = 0
 
 class EnlaceDiariosAdmin(admin.ModelAdmin):
     list_display = ('diario', 'noticia', 'url')
@@ -56,6 +41,24 @@ class EnlaceDiariosAdmin(admin.ModelAdmin):
             'fields': ('diario', 'noticia', 'url',)
         }),
     )
+
+
+class EnlaceDiariosInlineAdmin(admin.TabularInline):
+    verbose_name = "Enlace"
+    verbose_name_plural = "Enlaces"
+    model = EnlaceDiarios
+    extra = 0
+
+
+class NoticiasAdmin(admin.ModelAdmin):
+    list_display = ('status', 'enviadopor', 'tag', 'fecha', 'titulo_noticia', 'noticia',)
+    search_fields = ['status', 'enviadopor', 'tag', 'fecha', 'titulo_noticia', 'noticia',]
+    ordering = ('status', 'enviadopor', 'tag', 'fecha', 'titulo_noticia', 'noticia',)
+    fieldsets = (
+            ('Campos esenciales', {
+                'fields': ('tag', 'avances', 'status', 'enviadopor', 'fecha', 'antetitulo_noticia', 'titulo_noticia', 'noticia',)
+            }),
+        )
 
     inline = EnlaceDiariosInlineAdmin
 
