@@ -33,6 +33,7 @@
         								  <tr>
         									<th style="width: 20%">Fecha</th>
         									<th style="width: 20%">Hora</th>
+                          <th style="width: 20%">Etiqueta</th>
         									<th style="width: 20%">Enviado por</th>
         								  </tr>
         								  <tr>
@@ -42,20 +43,36 @@
         									<td>
         									   <input type="text" value="{{ object.hora|date:'h:i A' }}" readonly name="hora">
         									</td>
+                          <td>
+        									   <input type="text" value="{{ object.get_tag_display }}" readonly name="tag">
+        									</td>
         									<td>
         									  <input type="text" value="{{ object.enviadopor }}" readonly name="enviadopor">
         									</td>
         								  </tr>
         								</table>
-                                        <label for="titulomensaje"><h5>Antetitulo de la noticia:</h5></label>
-                                        <input type="text" style="width: 100%" value="{{ object.antetitulo_noticia }}" readonly name="antetitulo_noticia">
+                        <label for="titulomensaje"><h5>Antetitulo de la noticia:</h5></label>
+                        <input type="text" style="width: 100%" value="{{ object.antetitulo_noticia }}" readonly name="antetitulo_noticia">
         								<label for="titulomensaje"><h5>Titulo de la noticia:</h5></label>
         								<input type="text" style="width: 100%" value="{{ object.titulo_noticia }}" readonly name="titulo_noticia">
-        								<label for="titulomensaje"><h5>Dirección web de la noticia:</h5></label>
-        								<input type="text" style="width: 100%" value="{{ object.url }}" readonly name="url">
         								<label for="cuerpomensaje"><h5>Resumen de la noticia:</h5></label>
         								<textarea style='width: 100%;' readonly class="form-control" maxlength="1000" rows="4" value="{{ object.noticia }}" name="noticia">{{ object.noticia }}</textarea>
-
+                        <table class="table">
+        								  <tr>
+        									  <th style="width: 20%">Diario</th>
+        									  <th style="width: 20%">URL</th>
+        								  </tr>
+        								  <tr>
+                            {% for p in enlaces %}
+          									<td>
+          									  <input type="text" value="{{ p.diario }}" readonly name="diario">
+          									</td>
+          									<td>
+          									   <input type="text" value="{{ p.url }}" readonly name="url">
+          									</td>
+                            {% endfor %}
+        								  </tr>
+        								</table>
         							</div>
         						</div>
 

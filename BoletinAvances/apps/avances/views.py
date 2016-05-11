@@ -79,11 +79,8 @@ class NoticiasAddView(FormView):
     def post(self, request, *args, **kwargs):
         self.object = None
         form_class = self.get_form_class()
-        print form_class
         form = self.get_form(form_class)
-        print form
         noticias = form.save()
-        print noticias
         formset = EnlaceDiariosFormSet(request.POST, request.FILES, instance=noticias)
         if (form.is_valid() and formset.is_valid()):
             return self.form_valid(form, formset)
@@ -95,10 +92,6 @@ class NoticiasAddView(FormView):
         self.object = form.save()
         formset.instance = self.object
         formset.save()
-        noticia = self.object.id
-        c = Noticias.objects.get(id=self.object.id)
-        c.status = "Enviado"
-        c.save()
         return super(NoticiasAddView, self).form_valid(form)
 
     def form_invalid(self, form, formset):
@@ -116,6 +109,13 @@ class NoticiasDetailView(DetailView):
     model = Noticias
     slug_field = 'id'
     template_name="Noticias/singlenoticias.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(NoticiasDetailView, self).get_context_data(**kwargs)
+        noticia = self.object
+        context["enlaces"] = EnlaceDiarios.objects.filter(noticia=noticia)
+        return context
+
 
 #ELIMINAR NOTICIAS
 class NoticiasDeleteView(DeleteView):
@@ -227,10 +227,10 @@ class AvancesAddView(FormView):
         email = EmailMessage(titulo_mensaje, html_content, sender, [], recipients_final)
         email.content_subtype = 'html'
         email.send()
-        # #Cambiar estatus de boletin
-        # c = Avances.objects.get(id=avance)
-        # c.status = "Enviado"
-        # c.save()
+        #Cambiar estatus de boletin
+        c = Avances.objects.get(id=avance)
+        c.status = "Enviado"
+        c.save()
         return HttpResponseRedirect("/avances/Avancesver")
 
 
