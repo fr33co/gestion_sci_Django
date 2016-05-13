@@ -26,120 +26,120 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
 
-					<form id="multiselectForm" action="{% url 'enviar_noticia' %}" method="post" enctype="multipart/form-data">
-					  {% csrf_token %}
-						<div class="large-12 columns">
-							<div class="table-responsive" id="file_container" style="display:block">
-								<table class="table">
-								  <tr>
-									<th style="width: 20%">Fecha</th>
-									<th style="width: 20%">Hora</th>
-                  <th style="width: 20%">Etiqueta</th>
-								  </tr>
-								  <tr>
-									<td>
-									  <div style="width: 80%">
-										<div class="form-group">
-										  <div class="input-group">
-											<input class="form-control" data-provide="datepicker" value="{% now 'd/m/Y' %}" name="fecha" id="fecha" name="fecha">
-											<div class="input-group-addon">
-											  <i class="fa fa-calendar"></i>
-											</div>
-										  </div><!-- /.input group -->
-										</div><!-- /.form group -->
-									  </div>
-									</td>
-									<td>
-									  <!-- time Picker -->
-									  <div style="width: 70%" class="bootstrap-timepicker">
-										<div class="form-group">
-										  <div class="input-group">
-											  <input type="text" value="{% now 'h:i A' %}" class="form-control timepicker" name="hora" id="hora" name="hora"/>
-											<div class="input-group-addon">
-											  <i class="fa fa-clock-o"></i>
-											</div>
-										  </div><!-- /.input group -->
-										</div><!-- /.form group -->
-									  </div>
-									</td>
-                  <td>
-									  <div style="width: 100%">
-										<div class="form-group">
-										  <div class="input-group">
-                        <select style="width: 100%" class="form-control" id="tag" name="tag" value="{{ form.tag.value|default_if_none:'' }}" required>
-                            {% for x,y in form.fields.tag.choices %}
-                                <option value="{{ x }}"{% if form.fields.tag.value == x %} {% endif %}>{{ y }}</option>
+        					<form id="multiselectForm" action="{% url 'enviar_noticia' %}" method="post" enctype="multipart/form-data">
+        					  {% csrf_token %}
+        						<div class="large-12 columns">
+        							<div class="table-responsive" id="file_container" style="display:block">
+        								<table class="table">
+        								  <tr>
+        									<th style="width: 20%">Fecha</th>
+        									<th style="width: 20%">Hora</th>
+                          <th style="width: 20%">Etiqueta</th>
+        								  </tr>
+        								  <tr>
+        									<td>
+        									  <div style="width: 80%">
+        										<div class="form-group">
+        										  <div class="input-group">
+        											<input class="form-control" data-provide="datepicker" value="{% now 'd/m/Y' %}" name="fecha" id="fecha">
+        											<div class="input-group-addon">
+        											  <i class="fa fa-calendar"></i>
+        											</div>
+        										  </div><!-- /.input group -->
+        										</div><!-- /.form group -->
+        									  </div>
+        									</td>
+        									<td>
+        									  <!-- time Picker -->
+        									  <div style="width: 70%" class="bootstrap-timepicker">
+        										<div class="form-group">
+        										  <div class="input-group">
+        											  <input type="text" value="{% now 'h:i A' %}" class="form-control timepicker" name="hora" id="hora"/>
+        											<div class="input-group-addon">
+        											  <i class="fa fa-clock-o"></i>
+        											</div>
+        										  </div><!-- /.input group -->
+        										</div><!-- /.form group -->
+        									  </div>
+        									</td>
+                          <td>
+        									  <div style="width: 100%">
+        										<div class="form-group">
+        										  <div class="input-group">
+                                <select style="width: 100%" class="form-control" id="tag" name="tag" value="{{ form.tag.value|default_if_none:'' }}" required>
+                                    {% for x,y in form.fields.tag.choices %}
+                                        <option value="{{ x }}"{% if form.fields.tag.value == x %} {% endif %}>{{ y }}</option>
+                                    {% endfor %}
+                                </select>
+        										  </div><!-- /.input group -->
+        										</div><!-- /.form group -->
+        									  </div>
+        									</td>
+
+        								  </tr>
+        								</table>
+
+                        <label for="titulomensaje"><h5>Antetítulo de la noticia:</h5></label>
+        								<input type="text" style="width: 100%" class="form-control" value="{{ antetitulo_noticia }}" id="antetitulo_noticia" placeholder="Antetitulo de la noticia" name="antetitulo_noticia">
+        								<label for="titulomensaje"><h5>Titulo de la noticia:</h5></label>
+        								<input type="text" style="width: 100%" class="form-control" required="require" id="titulo_noticia" placeholder="Titulo de la noticia" name="titulo_noticia">
+        								<label for="cuerpomensaje"><h5>Resumen de la noticia:</h5></label>
+        								<textarea style='width: 100%;' class="form-control" required rows="4" id='noticia' value="{{ noticia }}" name="noticia"></textarea>
+        								<input name="enviadopor" value="{{ user.username }}" required type="hidden" id="enviadopor"/>
+
+                        <div id="file_container">
+                          <div class="formset" id="formset" data-formset-prefix="{{ formset.prefix }}">
+                          <div class="box-header" data-original-title>
+                            <h2 class="box-title">Enlaces que desea agregar:</h2>
+                          </div>
+
+                            {{ formset.media }}
+                            {% load formset_tags %}
+                            {{ formset.management_form }}
+
+                            <!-- This button will add a new form when clicked -->
+                            <button type="button" class="btn btn-block btn-success btn-lg" data-formset-add>Añadir Enlace(s)</button>
+
+                            <div data-formset-body>
+                            <!-- New forms will be inserted in here -->
+                            {% for form in formset %}
+                              <div data-formset-form>
+                                {{ form }}
+                                <button id="bottom-right" type="button" class="btn btn-danger" data-formset-delete-button>Eliminar Enlace</button>
+                              </div>
                             {% endfor %}
-                        </select>
-										  </div><!-- /.input group -->
-										</div><!-- /.form group -->
-									  </div>
-									</td>
+                            </div>
 
-								  </tr>
-								</table>
+                            <!-- The empty form template. By wrapping this in a <script> tag, the
+                            __prefix__ placeholder can easily be replaced in both attributes and
+                            any scripts -->
 
-                <label for="titulomensaje"><h5>Antetítulo de la noticia:</h5></label>
-								<input type="text" style="width: 100%" class="form-control" id="antetitulo_noticia" placeholder="Antetitulo de la noticia" name="antetitulo_noticia">
-								<label for="titulomensaje"><h5>Titulo de la noticia:</h5></label>
-								<input type="text" style="width: 100%" class="form-control" required="require" id="titulo_noticia" placeholder="Titulo de la noticia" name="titulo_noticia">
-								<label for="cuerpomensaje"><h5>Resumen de la noticia:</h5></label>
-								<textarea style='width: 100%;' class="form-control" required rows="4" id='noticia' value="{{ noticia }}" name="noticia"></textarea>
-								<input name="enviadopor" value="{{ user.username }}" required type="hidden" id="enviadopor"/>
+                            <script type="form-template" data-formset-empty-form>
+                            {% escapescript %}
+                              <div data-formset-form>
+                              {% for field in formset.empty_form %}
+                                  {{ field }}
+                              {% endfor %}
+                              <button id="bottom-right" type="button" class="btn btn-danger" data-formset-delete-button>Eliminar Enlace</button>
+                              </div>
+                            {% endescapescript %}
+                            </script>
 
-                <div id="file_container">
-                  <div class="formset" id="formset" data-formset-prefix="{{ formset.prefix }}">
-                  <div class="box-header" data-original-title>
-                    <h2 class="box-title">Enlaces que desea agregar:</h2>
-                  </div>
+                            <script>
+                            jQuery(function($) {
+                            $("#formset").formset({
+                              'animateForms': true,
+                              'reorderMode': 'animate',
+                            });
+                            });
 
-                    {{ formset.media }}
-                    {% load formset_tags %}
-                    {{ formset.management_form }}
+                            </script>
 
-                    <!-- This button will add a new form when clicked -->
-                    <button type="button" class="btn btn-block btn-success btn-lg" data-formset-add>Añadir Enlace(s)</button>
-
-                    <div data-formset-body>
-                    <!-- New forms will be inserted in here -->
-                    {% for form in formset %}
-                      <div data-formset-form>
-                        {{ form }}
-                        <button id="bottom-right" type="button" class="btn btn-danger" data-formset-delete-button>Eliminar Enlace</button>
-                      </div>
-                    {% endfor %}
-                    </div>
-
-                    <!-- The empty form template. By wrapping this in a <script> tag, the
-                    __prefix__ placeholder can easily be replaced in both attributes and
-                    any scripts -->
-
-                    <script type="form-template" data-formset-empty-form>
-                    {% escapescript %}
-                      <div data-formset-form>
-                      {% for field in formset.empty_form %}
-                          {{ field }}
-                      {% endfor %}
-                      <button id="bottom-right" type="button" class="btn btn-danger" data-formset-delete-button>Eliminar Enlace</button>
-                      </div>
-                    {% endescapescript %}
-                    </script>
-
-                    <script>
-                    jQuery(function($) {
-                    $("#formset").formset({
-                      'animateForms': true,
-                      'reorderMode': 'animate',
-                    });
-                    });
-
-                    </script>
-
-                  </div>
-                </div>
-            			<hr>
-						<button type="submit" id="submit-all" class="btn btn-block btn-primary btn-lg">Cargar noticia</button>
-					</form>
+                          </div>
+                        </div>
+                    			<hr>
+        						<button type="submit" id="submit-all" class="btn btn-block btn-primary btn-lg">Cargar noticia</button>
+        					</form>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->

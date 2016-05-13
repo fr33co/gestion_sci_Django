@@ -1,7 +1,7 @@
         <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <div class="container" style="min-width: 360px; max-width: 780px; font-family: Helvetica, 'Roboto'">
             <div class="cabecera" style="width: 100%; margin-bottom: 1em;">
-                <img style="max-width: 100%; min-width:380px; height: auto;" src="http://www.carabobo.gob.ve/wp-content/uploads/2016/02/headercarabobo-01.png" alt="Gobernacion de Carabobo">
+                <img style="max-width: 100%; min-width:380px; height: auto;" src="http://www.carabobo.gob.ve/wp-content/uploads/2016/05/HEADER1-1.png" alt="Gobernacion de Carabobo">
             </div>
             <div class="content">
                 <div class="info">
@@ -17,19 +17,23 @@
                     style="
                     border-top-style: solid;
                     border-top-width: thin;
-                    border-top-color: #F0F0F0;
+                    border-top-color: #B81F33;
                     margin-bottom: 1em;">
 
-                        <h3 style="text-align:justify; color: #3176B8; font-size:16px;"> {{ data.antetitulo_noticia }}</h3>
                         <p>
                             <span style="font-size:13px; color: #2E2E2E">
                                 Fecha: {{ data.fecha }} Hora: {{ data.hora}}
                             </span>
                         </p>
                         <p style="font-size=14px; color: #2E2E2E; text-align: justify; ">
-                          <b>{{ data.titulo}}<b>
+                          <b>{{ data.antetitulo_noticia}}<b>
                         </p>
-                        <p style="font-size=14px; color: #2E2E2E; text-align: justify; ">
+                        <h2>
+                          <p style="color: #2E2E2E; text-align: justify; ">
+                            <b>{{ data.titulo}}<b>
+                          </p>
+                        </h2>
+                        <p style="font-size=18px; color: #2E2E2E; text-align: justify; ">
                             {{ data.noticia }}
                         </p>
                         <div class="newspaper">
@@ -37,7 +41,7 @@
                                 Leer más sobre esta noticia en:
                             </p>
                             {% for diario in data.enlaces %}
-                            <p style="display: inline-block; font-size:14px; border-radius:4px; background-color: #F4F4F4; padding: 0.5em; color: #2E2E2E; font-weight: bold;">
+                            <p style="display: inline-block; font-size:14px; color: #2E2E2E; font-weight: bold; margin-top:0.3%;">
                                 {{ diario.diario }} - <a href="#">{{ diario.url }}</a>
                             </p>
                             {% endfor %}
@@ -45,6 +49,9 @@
                     </div>
                     {% endfor %}
                 </div>
+            </div>
+            <div class="footerimg" style="width: 100%; margin-bottom: 1em;">
+                <img style="max-width: 100%; min-width:380px; height: auto;" src="http://www.carabobo.gob.ve/wp-content/uploads/2016/05/HEADER2-1.png" alt="Gobernacion de Carabobo">
             </div>
             <div class="footer" style="background-color: #2E2E2E; color: #fff; text-align: center; padding:1.2em; font-weight:bold;">
                     Gobernación Bolivariana de Carabobo | RIF: G-20000152-6<br/>

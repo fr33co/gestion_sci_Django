@@ -196,11 +196,7 @@ class AvancesAddView(FormView):
         #Pasar datos a plantilla
         context = self.get_context_data(**kwargs)
         noticias =  context['Noticias']
-        print 'Noticias'
-        print noticias
         indices = self.request.POST['feeds']
-        print 'indices'
-        print indices
         indices = indices.split(',')
         container = []
         for a in noticias:
