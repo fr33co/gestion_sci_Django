@@ -92,5 +92,5 @@ class EnlaceDiarios(models.Model):
         ordering = ('diario', 'noticia', 'url')
 
     def __unicode__(self):
-        url = "Noticia: %s - URL: %s" % (self.noticia, self.url)
+        url = "Diario: %s - URL: %s" % (self.diario, self.url)
         return url

@@ -134,7 +134,7 @@ CKEDITOR_JQUERY_URL = 'http://localhost:8000/media/jquery-2.1.1/jquery.min.js'
 
 #Agregar configuraciones del SMTP
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'xxxxxxxxxxx@gmail.com'
-EMAIL_HOST_PASSWORD = 'xxxxxxxxxxxxxx'
+EMAIL_HOST_USER = 'xxxxxxxx@gmail.com'
+EMAIL_HOST_PASSWORD = 'xxxxxxxxxx'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

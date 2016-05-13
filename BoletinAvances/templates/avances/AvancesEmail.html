@@ -6,6 +6,7 @@
             <div class="content">
                 <div class="info">
                     <h2 style="font-size: bolder; color: #2E2E2E;"> {{ titulo_mensaje}}  </h2>
+                    <h4 style="font-size: bolder; color: #2E2E2E;"> {{ tag }}  </h4>
                     <p style="color: #2E2E2E; text-align: justify;">
                         {{ cuerpo_mensaje }}
                     </p>
@@ -19,22 +20,25 @@
                     border-top-color: #F0F0F0;
                     margin-bottom: 1em;">
 
-                        <h3 style="text-align:justify; color: #3176B8; font-size:16px;"> {{ data.titulo }}</h3>
+                        <h3 style="text-align:justify; color: #3176B8; font-size:16px;"> {{ data.antetitulo_noticia }}</h3>
                         <p>
                             <span style="font-size:13px; color: #2E2E2E">
                                 Fecha: {{ data.fecha }} Hora: {{ data.hora}}
                             </span>
                         </p>
                         <p style="font-size=14px; color: #2E2E2E; text-align: justify; ">
-                            {{ data.noticia}}
+                          <b>{{ data.titulo}}<b>
+                        </p>
+                        <p style="font-size=14px; color: #2E2E2E; text-align: justify; ">
+                            {{ data.noticia }}
                         </p>
                         <div class="newspaper">
                             <p style="text-align:justify; color: #3176B8; font-size:14px;">
                                 Leer más sobre esta noticia en:
                             </p>
-                            {% for diario in data.diarios %}
+                            {% for diario in data.enlaces %}
                             <p style="display: inline-block; font-size:14px; border-radius:4px; background-color: #F4F4F4; padding: 0.5em; color: #2E2E2E; font-weight: bold;">
-                                <a href="#">{{ diario }}</a>
+                                {{ diario.diario }} - <a href="#">{{ diario.url }}</a>
                             </p>
                             {% endfor %}
                         </div>
